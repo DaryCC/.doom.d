@@ -1,0 +1,2 @@
+
+configuración personal para doom  emacs
