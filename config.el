@@ -40,9 +40,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-
+(setq org-directory "~/Dropbox/Org")
+(setq projectile-project-search-path '("~/Code"))
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
@@ -74,3 +73,49 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;; PARA NUMERACIÓN RELATIVA
+(setq  display-line-numbers-type 'relative)
+;;A buffer can get out of sync with respect to its visited file on disk if that
+;;file is changed by another program. To keep it up to date, you can enable Auto
+;;Revert mode by typing M-x auto-revert-mode.
+(global-auto-revert-mode t)
+;; ORG-MODE
+;; First, we ask org-mode to hide the emphasis markup (e.g. /.../ for italics, *...* for bold, etc.):
+;;The auto-fill-mode function can be used to toggle auto fill mode for a buffer.
+;;Also check org-fill-paragraph for this task.
+;; (require org-download) for image pasting
+(use-package org
+    ;; :hook (org-mode . toc-org-enable)
+    :hook
+    (add-hook 'org-mode-hook 'auto-indent-mode)
+    ;; (add-hook 'dired-mode-hook 'org-download-enable)
+    :config
+    (add-hook 'org-mode-hook 'turn-on-auto-fill)
+    (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters)
+    :custom
+    (org-ellipsis "▼")
+    )
+(setq org-hide-emphasis-markers t)
+(use-package org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package org-superstar ;;improved version of orgbulets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  )
+;;PYTHON
+(use-package python-mode
+    :ensure t
+    :custom
+    ;; (python-shell-interprer "python3")
+    (require 'dap-python)
+    ;; (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
+    (setq py-shell-name "/usr/bin/python3")
+    ;; (setq python-shell-interpreter "python3")
+    (setq py-python-command "/usr/bin/python3")
+    (setq python-shell-completion-native-enable t)
+    :config
+    ;; (defun my/python-mode-hook ()
+    ;;   (add-to-list 'company-backends 'company-jedi))
+    ;; (add-hook 'python-mode-hook 'my/python-mode-hook)
+    )

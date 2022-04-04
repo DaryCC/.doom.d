@@ -1,2 +1,2 @@
 
-configuración personal para doom  emacs
+Configuración personal para doom  emacs
